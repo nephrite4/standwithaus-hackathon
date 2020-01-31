@@ -8,7 +8,7 @@ app = Flask(__name__)
 def index():
 	print('here')
 	if request.method == 'POST':
-		description = request.form.get('details-input')
+		description = request.form.get('details')
 		result = check_similarity(description)
 		if result != None:
 			return render_template(index)
