@@ -10,7 +10,6 @@ import {
   CardBody,
   CardFooter,
   CardHeader,
-
   CardTitle,
   Col, Collapse,
   Dropdown,
@@ -25,6 +24,7 @@ import { CustomTooltips } from '@coreui/coreui-plugin-chartjs-custom-tooltips';
 import { getStyle, hexToRgba } from '@coreui/coreui/dist/js/coreui-utilities'
 import SWABanner from "../../assets/img/standwithausbanner.png";
 import axios from "axios";
+import {Redirect} from 'react-router-dom';
 
 const Widget03 = lazy(() => import('../../views/Widgets/Widget03'));
 
@@ -462,42 +462,54 @@ class Dashboard extends Component {
     // this.toggle = this.toggle.bind(this);
     // this.onRadioBtnClick = this.onRadioBtnClick.bind(this);
 
-    this.state = {
-      title: '',
-      details: '',
-      file: ''
-    };
+    this.state =
+        {send:{ title: '', details: '', file: ''},
+          receive: { similarity: '', match:''},
+          redirect : false
+
   }
+    };
 
-  // toggle() {
-  //   this.setState({
-  //     dropdownOpen: !this.state.dropdownOpen,
-  //   });
-  // }
-
-  // onRadioBtnClick(radioSelected) {
-  //   this.setState({
-  //     radioSelected: radioSelected,
-  //   });
-  // }
 
   loading = () => <div className="animated fadeIn pt-1 text-center">Loading...</div>
 
+  // handleSubmit = e => {
+  //   e.PreventDefault();
+  //   axios.post('http://127.0.0.1:5000/',
+  //       { title: this.state.send.title, details : this.state.send.details}).then(res=>{
+  //     console.log(res);
+  //     console.log(res.data);
+  //     this.setState({receive: {similarity: res.similarity, match: match.similarity}});
+
   handleSubmit = e => {
     e.PreventDefault();
-    axios.post('http://127.0.0.1:5000/', { title: this.state.title, details : this.state.details}).then(res=>{
-      console.log(res);
-      console.log(res.data);})
+    axios.post('http://127.0.0.1:500/',
+        {title: this.state.send.title, details: this.state.send.details}).then(res=> {
+          console.log(res);
+          console.log(res.data);
+          this.setState({receive: {similarity: res.similarity, match: res.match},redirect : true
+          });
+    })
+
   }
+
 
   onChange = e => {
     this.setState({ [e.target.name]: e.target.value});
   }
 
 
+
   render() {
 
-    return (
+    const redirect = this.state.redirect;
+    if(redirect){
+      return <Redirect to="/Results"/>
+    }
+    else
+      return(
+
+
       <div className="animated fadeIn">
         <Row>
           <Col>
@@ -552,7 +564,7 @@ class Dashboard extends Component {
           </Col>
         </Row>
       </div>
-    );
+      )
   }
 }
 
