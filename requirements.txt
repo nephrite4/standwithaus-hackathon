@@ -127,8 +127,6 @@ pytest-remotedata==0.3.2
 python-dateutil==2.8.0
 pytz==2019.3
 PyWavelets==1.0.3
-pywin32==223
-pywinpty==0.5.5
 PyYAML==5.1.2
 pyzmq==18.1.0
 QtAwesome==0.6.0
@@ -139,9 +137,6 @@ rope==0.14.0
 ruamel-yaml==0.15.46
 s3transfer==0.3.2
 Send2Trash==1.5.0
-Shapely==1.7.0
-simplegeneric==0.8.1
-singledispatch==3.4.0.3
 six==1.12.0
 sklearn==0.0
 smart-open==1.9.0
