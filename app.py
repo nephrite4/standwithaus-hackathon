@@ -1,4 +1,4 @@
-from flask import Flask,render_template,request,url_for,Response
+from flask import Flask,render_template,request,url_for,Response,jsonify, redirect
 from model import check_similarity
 
 app = Flask(__name__)
@@ -10,11 +10,10 @@ def index():
 	if request.method == 'POST':
 		description = request.form.get('details')
 		result = check_similarity(description)
-		if result != None:
-			return render_template(index)
-			Response('', headers={'similarity': result[0], 'match': result[1]})
+		if result[0] > 0.99:
+			return jsonify(similarity= str(result[0]), match= result[1])
 		else:
-			return Response('', headers={'similarity': 0, 'match': None})
+			return jsonify(similarity= str(0), match= None)
 	return render_template('index.html')
 
 

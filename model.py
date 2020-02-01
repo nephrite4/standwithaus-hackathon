@@ -62,8 +62,5 @@ def check_similarity(doc):
     print(sims)
     sims = sorted(enumerate(sims), key=lambda item: -item[1])
     for i, s in enumerate(sims):
-        if s[1] > 0.99:
-            # send front_end similarity value s[1] and documents[i]
-            return (s[1], documents[i])
-
-    return None
+        # send front_end similarity value s[1] and documents[i]
+        return (s[1], documents[i])
